@@ -1,5 +1,22 @@
-import { Group } from "@mantine/core";
 import { useState } from "react";
+import { Group } from "@mantine/core";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  DragStartEvent,
+  UniqueIdentifier,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  horizontalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 import { ColorCard } from "../components/ColorCard";
 
@@ -15,29 +32,64 @@ export function ColorPalette() {
     { id: 3, color: "#4dbf75" },
     { id: 4, color: "#c24f4f" },
   ]);
+  const [active, setActive] = useState<UniqueIdentifier>(0);
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   return (
     <Group>
-      {selections.map((selection) => (
-        <ColorCard
-          key={selection.id}
-          selection={selection}
-          setColor={(color: string, id: number) =>
-            setSelections((old) =>
-              old.map((selection) => {
-                if (selection.id !== id) {
-                  return selection;
-                }
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}
+      >
+        <SortableContext
+          items={selections}
+          strategy={horizontalListSortingStrategy}
+        >
+          {selections.map((selection) => (
+            <ColorCard
+              active={active === selection.id}
+              key={selection.id}
+              selection={selection}
+              setColor={(color: string, id: number) =>
+                setSelections((old) =>
+                  old.map((selection) => {
+                    if (selection.id !== id) {
+                      return selection;
+                    }
 
-                return {
-                  ...selection,
-                  color,
-                };
-              })
-            )
-          }
-        />
-      ))}
+                    return {
+                      ...selection,
+                      color,
+                    };
+                  })
+                )
+              }
+            />
+          ))}
+        </SortableContext>
+      </DndContext>
     </Group>
   );
+
+  function handleDragStart({ active }: DragStartEvent) {
+    setActive(active.id);
+  }
+
+  function handleDragEnd({ active, over }: DragEndEvent) {
+    if (active.id !== over?.id) {
+      setSelections((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over?.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  }
 }
