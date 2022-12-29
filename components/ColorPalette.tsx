@@ -10,9 +10,9 @@ export interface ColorSelection {
 
 export function ColorPalette() {
   const [selections, setSelections] = useState<ColorSelection[]>([
-    { id: 1, color: "#c24f4f" },
-    { id: 2, color: "#c24f4f" },
-    { id: 3, color: "#c24f4f" },
+    { id: 1, color: "#a568bd" },
+    { id: 2, color: "#7a3737" },
+    { id: 3, color: "#4dbf75" },
     { id: 4, color: "#c24f4f" },
   ]);
 
