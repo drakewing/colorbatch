@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
 
+import { ColorCard } from "../components/ColorCard";
 import { HeaderMenuColored } from "../components/HeaderMenu";
 import { SocialButtons } from "../components/AuthButtons";
 
@@ -73,8 +74,9 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} bg-red-200`}>
         <HeaderMenuColored links={devLinkData} />
-        <p>uhhh hello?</p>
-        <SocialButtons />
+        {/* <p>uhhh hello?</p>
+        <SocialButtons /> */}
+        <ColorCard />
       </main>
     </>
   );
