@@ -2,9 +2,8 @@ import Head from "next/head";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
 
-import { ColorCard } from "../components/ColorCard";
 import { HeaderMenuColored } from "../components/HeaderMenu";
-import { SocialButtons } from "../components/AuthButtons";
+import { ColorPalette } from "../components/ColorPalette";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -72,11 +71,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} bg-red-200`}>
+      <main className={styles.main}>
         <HeaderMenuColored links={devLinkData} />
-        {/* <p>uhhh hello?</p>
-        <SocialButtons /> */}
-        <ColorCard />
+        <ColorPalette />
       </main>
     </>
   );

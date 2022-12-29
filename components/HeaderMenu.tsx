@@ -18,6 +18,7 @@ const useStyles = createStyles((theme) => ({
       color: theme.primaryColor,
     }).background,
     borderBottom: 0,
+    width: "100vw",
   },
 
   inner: {
@@ -113,7 +114,7 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
   });
 
   return (
-    <Header height={56} className={`${classes.header} mb-56 w-screen`}>
+    <Header height={56} className={classes.header} mb={156}>
       <Container>
         <div className={classes.inner}>
           <MantineLogo size={28} inverted />

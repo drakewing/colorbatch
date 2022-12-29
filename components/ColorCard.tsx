@@ -1,13 +1,19 @@
 import { Card, ColorInput } from "@mantine/core";
-import { useState } from "react";
+import { ColorSelection } from "./ColorPalette";
 
-export const ColorCard = () => {
-  const [color, setColor] = useState("#bd1717");
+interface ColorCardProps {
+  selection: ColorSelection;
+  setColor: (color: string, id: number) => void;
+}
 
+export const ColorCard = ({ selection, setColor }: ColorCardProps) => {
   return (
-    <Card p={0} sx={{ backgroundColor: color }}>
-      <Card.Section h={260} />
-      <ColorInput value={color} onChange={setColor} />
+    <Card p={0} sx={{ backgroundColor: selection.color }}>
+      <Card.Section h={320} />
+      <ColorInput
+        value={selection.color}
+        onChange={(value) => setColor(value, selection.id)}
+      />
     </Card>
   );
 };
