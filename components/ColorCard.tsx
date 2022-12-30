@@ -22,7 +22,7 @@ export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
 
   return (
     <div style={style} ref={setNodeRef} {...attributes}>
-      <Card p={0} sx={{ backgroundColor: selection.color }}>
+      <Card p={0} shadow="md" sx={{ backgroundColor: selection.color }}>
         <Card.Section h={320} {...listeners} />
         <ColorInput
           value={selection.color}

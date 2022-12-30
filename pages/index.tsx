@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 
 import { HeaderMenuColored } from "../components/HeaderMenu";
 import { ColorPalette } from "../components/ColorPalette";
+import { ShareableLink } from "../components/ShareableLink";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -74,6 +75,7 @@ export default function Home() {
       <main className={styles.main}>
         <HeaderMenuColored links={devLinkData} />
         <ColorPalette />
+        <ShareableLink link="Share this palette with your friends:" />
       </main>
     </>
   );
