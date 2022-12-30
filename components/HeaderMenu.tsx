@@ -9,7 +9,6 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconChevronDown } from "@tabler/icons";
-import { MantineLogo } from "@mantine/ds";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -120,7 +119,7 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
   });
 
   return (
-    <Header height={56} className={classes.header} mb={156}>
+    <Header height={56} className={classes.header}>
       <Container>
         <div className={classes.inner}>
           <div style={logoStyle}>colorbatch</div>

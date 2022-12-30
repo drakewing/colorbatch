@@ -5,62 +5,63 @@ import styles from "../styles/Home.module.css";
 import { HeaderMenuColored } from "../components/HeaderMenu";
 import { ColorPalette } from "../components/ColorPalette";
 import { ShareableLink } from "../components/ShareableLink";
+import { Group, Text, Title } from "@mantine/core";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const devLinkData: any = [
-  {
-    link: "/about",
-    label: "Features",
-  },
-  {
-    link: "#1",
-    label: "Learn",
-    links: [
-      {
-        link: "/docs",
-        label: "Documentation",
-      },
-      {
-        link: "/resources",
-        label: "Resources",
-      },
-      {
-        link: "/community",
-        label: "Community",
-      },
-      {
-        link: "/blog",
-        label: "Blog",
-      },
-    ],
-  },
-  {
-    link: "/about",
-    label: "About",
-  },
-  {
-    link: "/pricing",
-    label: "Pricing",
-  },
-  {
-    link: "#2",
-    label: "Support",
-    links: [
-      {
-        link: "/faq",
-        label: "FAQ",
-      },
-      {
-        link: "/demo",
-        label: "Book a demo",
-      },
-      {
-        link: "/forums",
-        label: "Forums",
-      },
-    ],
-  },
+  /* {
+   *   link: "/about",
+   *   label: "Features",
+   * },
+   * {
+   *   link: "#1",
+   *   label: "Learn",
+   *   links: [
+   *     {
+   *       link: "/docs",
+   *       label: "Documentation",
+   *     },
+   *     {
+   *       link: "/resources",
+   *       label: "Resources",
+   *     },
+   *     {
+   *       link: "/community",
+   *       label: "Community",
+   *     },
+   *     {
+   *       link: "/blog",
+   *       label: "Blog",
+   *     },
+   *   ],
+   * },
+   * {
+   *   link: "/about",
+   *   label: "About",
+   * },
+   * {
+   *   link: "/pricing",
+   *   label: "Pricing",
+   * },
+   * {
+   *   link: "#2",
+   *   label: "Support",
+   *   links: [
+   *     {
+   *       link: "/faq",
+   *       label: "FAQ",
+   *     },
+   *     {
+   *       link: "/demo",
+   *       label: "Book a demo",
+   *     },
+   *     {
+   *       link: "/forums",
+   *       label: "Forums",
+   *     },
+   *   ],
+   * }, */
 ];
 
 export default function Home() {
@@ -74,6 +75,20 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <HeaderMenuColored links={devLinkData} />
+        <div
+          style={{
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            margin: 60,
+            rowGap: 10,
+          }}
+        >
+          <Title order={1}>Create and share color palettes</Title>
+          <Text size="md">
+            Share them with your friends - no login required!
+          </Text>
+        </div>
         <ColorPalette />
         <ShareableLink cta="Share this palette with your friends!" />
       </main>
