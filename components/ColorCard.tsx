@@ -17,13 +17,13 @@ export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    zIndex: active ? 1000 : 999,
+    zIndex: active ? 1 : 0,
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div style={style} ref={setNodeRef} {...attributes}>
       <Card p={0} sx={{ backgroundColor: selection.color }}>
-        <Card.Section h={320} />
+        <Card.Section h={320} {...listeners} />
         <ColorInput
           value={selection.color}
           onChange={(value) => setColor(value, selection.id)}

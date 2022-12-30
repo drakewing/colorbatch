@@ -7,7 +7,7 @@ import { ColorPalette } from "../components/ColorPalette";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const devLinkData = [
+const devLinkData: any = [
   {
     link: "/about",
     label: "Features",

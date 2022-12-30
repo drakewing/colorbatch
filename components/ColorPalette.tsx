@@ -10,6 +10,7 @@ import {
   DragEndEvent,
   DragStartEvent,
   UniqueIdentifier,
+  TouchSensor,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -37,21 +38,22 @@ export function ColorPalette() {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
+    useSensor(TouchSensor)
   );
 
   return (
-    <Group>
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-        onDragStart={handleDragStart}
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+      onDragStart={handleDragStart}
+    >
+      <SortableContext
+        items={selections}
+        strategy={horizontalListSortingStrategy}
       >
-        <SortableContext
-          items={selections}
-          strategy={horizontalListSortingStrategy}
-        >
+        <Group>
           {selections.map((selection) => (
             <ColorCard
               active={active === selection.id}
@@ -73,9 +75,9 @@ export function ColorPalette() {
               }
             />
           ))}
-        </SortableContext>
-      </DndContext>
-    </Group>
+        </Group>
+      </SortableContext>
+    </DndContext>
   );
 
   function handleDragStart({ active }: DragStartEvent) {
