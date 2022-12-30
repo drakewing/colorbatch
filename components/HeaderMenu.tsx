@@ -76,6 +76,12 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
   const [opened, { toggle }] = useDisclosure(false);
   const { classes } = useStyles();
 
+  const logoStyle = {
+    color: "white",
+    fontFamily: "Georgia, serif",
+    fontSize: 28,
+  };
+
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
@@ -117,7 +123,7 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
     <Header height={56} className={classes.header} mb={156}>
       <Container>
         <div className={classes.inner}>
-          <MantineLogo size={28} inverted />
+          <div style={logoStyle}>colorbatch</div>
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>

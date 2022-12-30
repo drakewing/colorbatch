@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button, Card } from "@mantine/core";
+import { IconClipboardCopy } from "@tabler/icons";
 
-export function ShareableLink({ link }: { link: string }) {
+export function ShareableLink({ cta }: { cta: string }) {
   const style: any = {
     alignItems: "center",
     display: "flex",
@@ -13,9 +14,9 @@ export function ShareableLink({ link }: { link: string }) {
 
   return (
     <Card style={style} shadow="md" withBorder>
-      {link}
-      <Button color="violet">
-        <Link href="https://google.com">Testing!!!</Link>
+      {cta}
+      <Button rightIcon={<IconClipboardCopy />} color="violet">
+        <Link href="https://google.com">Copy Palette Link</Link>
       </Button>
     </Card>
   );
