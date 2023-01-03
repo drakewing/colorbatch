@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Inter } from "@next/font/google";
 import { Text, Title } from "@mantine/core";
 
@@ -7,17 +8,19 @@ import styles from "../styles/Home.module.css";
 import { HeaderMenuColored } from "../components/HeaderMenu";
 import { ColorPalette, ColorSelection } from "../components/ColorPalette";
 import { ShareableLink } from "../components/ShareableLink";
-import { createPaletteLink } from "../utils/colors";
+import { createPaletteLink, paramsToPalette } from "../utils/colors";
+import { NextPageContext } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
-  const [selections, setSelections] = useState<ColorSelection[]>([
-    { id: 1, color: "#a568bd" },
-    { id: 2, color: "#7a3737" },
-    { id: 3, color: "#4dbf75" },
-    { id: 4, color: "#c24f4f" },
-  ]);
+interface HomeProps {
+  initialColors: ColorSelection[];
+}
+
+export default function Home({ initialColors }: HomeProps) {
+  const router = useRouter();
+
+  const [selections, setSelections] = useState<ColorSelection[]>(initialColors);
 
   return (
     <>
@@ -52,4 +55,9 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export function getServerSideProps(context: NextPageContext) {
+  const initialColors = paramsToPalette(context.req?.url?.substring(2) || "");
+  return { props: { initialColors } };
 }

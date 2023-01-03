@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconChevronDown } from "@tabler/icons";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -122,7 +123,11 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
     <Header height={56} className={classes.header}>
       <Container>
         <div className={classes.inner}>
-          <div style={logoStyle}>colorbatch</div>
+          <div style={logoStyle}>
+            <Link href={`http://${process.env.NEXT_PUBLIC_COLORBATCH_HOST}/`}>
+              colorbatch
+            </Link>
+          </div>
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>

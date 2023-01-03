@@ -17,11 +17,17 @@ export function ShareableLink({ cta, url }: ShareableLinkProps) {
     marginTop: 30,
   };
 
+  const copyToClipboard = () => navigator.clipboard.writeText(url);
+
   return (
     <Card style={style} shadow="md" withBorder>
       {cta}
-      <Button rightIcon={<IconClipboardCopy />} color="violet" >
-        <Link href={url}>Copy Palette Link</Link>
+      <Button
+        onClick={copyToClipboard}
+        rightIcon={<IconClipboardCopy />}
+        color="violet"
+      >
+        Copy Link
       </Button>
     </Card>
   );
