@@ -2,12 +2,17 @@ import Link from "next/link";
 import { Button, Card } from "@mantine/core";
 import { IconClipboardCopy } from "@tabler/icons";
 
+import { ColorSelection } from "./ColorPalette";
+import { usePaletteContext } from "../context/ColorPalette";
+
 interface ShareableLinkProps {
   cta: string;
   url: string;
 }
 
 export function ShareableLink({ cta, url }: ShareableLinkProps) {
+  const { colors } = usePaletteContext();
+
   const style: any = {
     alignItems: "center",
     display: "flex",
@@ -17,7 +22,8 @@ export function ShareableLink({ cta, url }: ShareableLinkProps) {
     marginTop: 30,
   };
 
-  const copyToClipboard = () => navigator.clipboard.writeText(url);
+  const copyToClipboard = () =>
+    navigator.clipboard.writeText(createPaletteLink(colors));
 
   return (
     <Card style={style} shadow="md" withBorder>
@@ -31,4 +37,10 @@ export function ShareableLink({ cta, url }: ShareableLinkProps) {
       </Button>
     </Card>
   );
+}
+
+export function createPaletteLink(palette: ColorSelection[]): string {
+  const params = new URLSearchParams();
+  palette.forEach((color) => params.append(color.id.toString(), color.color));
+  return `http://${process.env.NEXT_PUBLIC_COLORBATCH_HOST}?${params}`;
 }

@@ -20,18 +20,15 @@ import {
 } from "@dnd-kit/sortable";
 
 import { ColorCard } from "../components/ColorCard";
+import { usePaletteContext } from "../context/ColorPalette";
 
 export interface ColorSelection {
   id: number;
   color: string;
 }
 
-interface ColorPaletteProps {
-  selections: ColorSelection[];
-  setSelections: Dispatch<SetStateAction<ColorSelection[]>>;
-}
-
-export function ColorPalette({ selections, setSelections }: ColorPaletteProps) {
+export function ColorPalette() {
+  const { colors, setColors } = usePaletteContext();
   const [active, setActive] = useState<UniqueIdentifier>(0);
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -48,25 +45,22 @@ export function ColorPalette({ selections, setSelections }: ColorPaletteProps) {
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
     >
-      <SortableContext
-        items={selections}
-        strategy={horizontalListSortingStrategy}
-      >
+      <SortableContext items={colors} strategy={horizontalListSortingStrategy}>
         <Group>
-          {selections.map((selection) => (
+          {colors.map((color) => (
             <ColorCard
-              active={active === selection.id}
-              key={selection.id}
-              selection={selection}
+              active={active === color.id}
+              key={color.id}
+              selection={color}
               setColor={(color: string, id: number) =>
-                setSelections((old) =>
-                  old.map((selection) => {
-                    if (selection.id !== id) {
-                      return selection;
+                setColors((oldColors) =>
+                  oldColors.map((oldColor) => {
+                    if (oldColor.id !== id) {
+                      return oldColor;
                     }
 
                     return {
-                      ...selection,
+                      ...oldColor,
                       color,
                     };
                   })
@@ -85,7 +79,7 @@ export function ColorPalette({ selections, setSelections }: ColorPaletteProps) {
 
   function handleDragEnd({ active, over }: DragEndEvent) {
     if (active.id !== over?.id) {
-      setSelections((items) => {
+      setColors((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over?.id);
 

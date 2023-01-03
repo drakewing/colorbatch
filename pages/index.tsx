@@ -1,6 +1,4 @@
-import { useState } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { Inter } from "@next/font/google";
 import { Text, Title } from "@mantine/core";
 
@@ -10,6 +8,7 @@ import { ColorPalette, ColorSelection } from "../components/ColorPalette";
 import { ShareableLink } from "../components/ShareableLink";
 import { createPaletteLink, paramsToPalette } from "../utils/colors";
 import { NextPageContext } from "next";
+import { PaletteWrapper } from "../context/ColorPalette";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +17,6 @@ interface HomeProps {
 }
 
 export default function Home({ initialColors }: HomeProps) {
-  const router = useRouter();
-
-  const [selections, setSelections] = useState<ColorSelection[]>(initialColors);
-
   return (
     <>
       <Head>
@@ -47,11 +42,10 @@ export default function Home({ initialColors }: HomeProps) {
             Share them with your friends - no login required!
           </Text>
         </div>
-        <ColorPalette selections={selections} setSelections={setSelections} />
-        <ShareableLink
-          cta="Share this palette with your friends!"
-          url={createPaletteLink(selections)}
-        />
+        <PaletteWrapper initialColors={initialColors}>
+          <ColorPalette />
+          <ShareableLink cta="Share this palette with your friends!" />
+        </PaletteWrapper>
       </main>
     </>
   );

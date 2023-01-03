@@ -1,11 +1,5 @@
 import { ColorSelection } from "../components/ColorPalette";
 
-export function createPaletteLink(palette: ColorSelection[]): string {
-  const params = new URLSearchParams();
-  palette.forEach((color) => params.append(color.id.toString(), color.color));
-  return `http://${process.env.NEXT_PUBLIC_COLORBATCH_HOST}?${params}`;
-}
-
 export function paramsToPalette(params: string): ColorSelection[] {
   const parsed = new URLSearchParams(params);
   const colors = Array.from(parsed.entries()).map((entry) => ({
