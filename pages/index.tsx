@@ -1,70 +1,24 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { Inter } from "@next/font/google";
-import styles from "../styles/Home.module.css";
+import { Text, Title } from "@mantine/core";
 
+import styles from "../styles/Home.module.css";
 import { HeaderMenuColored } from "../components/HeaderMenu";
-import { ColorPalette } from "../components/ColorPalette";
+import { ColorPalette, ColorSelection } from "../components/ColorPalette";
 import { ShareableLink } from "../components/ShareableLink";
-import { Group, Text, Title } from "@mantine/core";
+import { createPaletteLink } from "../utils/colors";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const devLinkData: any = [
-  /* {
-   *   link: "/about",
-   *   label: "Features",
-   * },
-   * {
-   *   link: "#1",
-   *   label: "Learn",
-   *   links: [
-   *     {
-   *       link: "/docs",
-   *       label: "Documentation",
-   *     },
-   *     {
-   *       link: "/resources",
-   *       label: "Resources",
-   *     },
-   *     {
-   *       link: "/community",
-   *       label: "Community",
-   *     },
-   *     {
-   *       link: "/blog",
-   *       label: "Blog",
-   *     },
-   *   ],
-   * },
-   * {
-   *   link: "/about",
-   *   label: "About",
-   * },
-   * {
-   *   link: "/pricing",
-   *   label: "Pricing",
-   * },
-   * {
-   *   link: "#2",
-   *   label: "Support",
-   *   links: [
-   *     {
-   *       link: "/faq",
-   *       label: "FAQ",
-   *     },
-   *     {
-   *       link: "/demo",
-   *       label: "Book a demo",
-   *     },
-   *     {
-   *       link: "/forums",
-   *       label: "Forums",
-   *     },
-   *   ],
-   * }, */
-];
-
 export default function Home() {
+  const [selections, setSelections] = useState<ColorSelection[]>([
+    { id: 1, color: "#a568bd" },
+    { id: 2, color: "#7a3737" },
+    { id: 3, color: "#4dbf75" },
+    { id: 4, color: "#c24f4f" },
+  ]);
+
   return (
     <>
       <Head>
@@ -74,13 +28,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <HeaderMenuColored links={devLinkData} />
+        <HeaderMenuColored links={[]} />
         <div
           style={{
             alignItems: "center",
             display: "flex",
             flexDirection: "column",
-            margin: 60,
+            marginBottom: 30,
+            marginTop: 60,
             rowGap: 10,
           }}
         >
@@ -89,8 +44,11 @@ export default function Home() {
             Share them with your friends - no login required!
           </Text>
         </div>
-        <ColorPalette />
-        <ShareableLink cta="Share this palette with your friends!" />
+        <ColorPalette selections={selections} setSelections={setSelections} />
+        <ShareableLink
+          cta="Share this palette with your friends!"
+          url={createPaletteLink(selections)}
+        />
       </main>
     </>
   );

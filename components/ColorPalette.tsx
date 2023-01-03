@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { Group } from "@mantine/core";
 import {
   DndContext,
@@ -26,13 +26,12 @@ export interface ColorSelection {
   color: string;
 }
 
-export function ColorPalette() {
-  const [selections, setSelections] = useState<ColorSelection[]>([
-    { id: 1, color: "#a568bd" },
-    { id: 2, color: "#7a3737" },
-    { id: 3, color: "#4dbf75" },
-    { id: 4, color: "#c24f4f" },
-  ]);
+interface ColorPaletteProps {
+  selections: ColorSelection[];
+  setSelections: Dispatch<SetStateAction<ColorSelection[]>>;
+}
+
+export function ColorPalette({ selections, setSelections }: ColorPaletteProps) {
   const [active, setActive] = useState<UniqueIdentifier>(0);
   const sensors = useSensors(
     useSensor(PointerSensor),
