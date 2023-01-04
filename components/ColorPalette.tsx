@@ -40,6 +40,7 @@ export function ColorPalette() {
 
   return (
     <DndContext
+      id="0"
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
