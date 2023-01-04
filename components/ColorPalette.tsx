@@ -46,7 +46,7 @@ export function ColorPalette() {
       onDragStart={handleDragStart}
     >
       <SortableContext items={colors} strategy={horizontalListSortingStrategy}>
-        <Group>
+        <Group noWrap>
           {colors.map((color) => (
             <ColorCard
               active={active === color.id}
