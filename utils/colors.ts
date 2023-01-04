@@ -1,11 +1,17 @@
 import { ColorSelection } from "../components/ColorPalette";
 
+const numberRegex = /^[0-9a-fA-F]{6}$/;
+
 export function paramsToPalette(params: string): ColorSelection[] {
-  const parsed = new URLSearchParams(params);
-  const colors = Array.from(parsed.entries()).map((entry) => ({
-    id: parseInt(entry[0]),
-    color: entry[1],
-  }));
+  const colors = params
+    .split("-")
+    .filter((color) => numberRegex.test(color))
+    .slice(0, 7)
+    .map((color) => `#${color}`)
+    .map((color, i) => ({
+      id: i,
+      color: color,
+    }));
 
   if (colors.length > 0) return colors;
 
