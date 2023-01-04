@@ -34,6 +34,7 @@ export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
           },
           width: "180px",
           backgroundColor: selection.color,
+          touchAction: "none",
         })}
       >
         <Card.Section h={320} {...listeners} />
