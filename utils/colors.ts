@@ -20,5 +20,8 @@ export function paramsToPalette(params: string): ColorSelection[] {
     { id: 2, color: "#7a3737" },
     { id: 3, color: "#4dbf75" },
     { id: 4, color: "#c24f4f" },
+    { id: 5, color: "#1568bd" },
+    { id: 6, color: "#1568bd" },
+    { id: 7, color: "#1568bd" },
   ];
 }
