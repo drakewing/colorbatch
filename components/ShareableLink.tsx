@@ -7,10 +7,9 @@ import { usePaletteContext } from "../context/ColorPalette";
 
 interface ShareableLinkProps {
   cta: string;
-  url: string;
 }
 
-export function ShareableLink({ cta, url }: ShareableLinkProps) {
+export function ShareableLink({ cta }: ShareableLinkProps) {
   const { colors } = usePaletteContext();
 
   const style: any = {

@@ -3,6 +3,7 @@ import { Card, ColorInput } from "@mantine/core";
 import { CSS } from "@dnd-kit/utilities";
 
 import { ColorSelection } from "./ColorPalette";
+import useWindowDimensions from "../utils/window";
 
 interface ColorCardProps {
   active: boolean;
@@ -11,6 +12,7 @@ interface ColorCardProps {
 }
 
 export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
+  const { width } = useWindowDimensions();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: selection.id });
 
@@ -26,7 +28,7 @@ export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
         p={0}
         shadow="md"
         sx={(theme) => ({
-          "@media (max-width: 1300px)": {
+          "@media (max-width: 1400px)": {
             width: "140px",
           },
           "@media (max-width: 1100px)": {
@@ -43,20 +45,6 @@ export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
           onChange={(value) => setColor(value, selection.id)}
           withPreview={false}
           size="xs"
-          sx={(theme) => ({
-            "@media (min-width: 1100px)": {
-              display: "none",
-            },
-          })}
-        />
-        <ColorInput
-          value={selection.color}
-          onChange={(value) => setColor(value, selection.id)}
-          sx={(theme) => ({
-            "@media (max-width: 1100px)": {
-              display: "none",
-            },
-          })}
         />
       </Card>
     </div>
