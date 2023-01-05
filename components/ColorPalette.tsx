@@ -20,16 +20,16 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import { ColorCard } from "../components/ColorCard";
 import { usePaletteContext } from "../context/ColorPalette";
 import useWindowDimensions from "../utils/window";
+import ColorCard from "./ColorCard";
 
 export interface ColorSelection {
   id: number;
   color: string;
 }
 
-export function ColorPalette() {
+export default function ColorPalette() {
   const { width } = useWindowDimensions();
   const { colors, setColors } = usePaletteContext();
   const [active, setActive] = useState<UniqueIdentifier>(0);

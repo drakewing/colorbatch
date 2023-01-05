@@ -11,7 +11,11 @@ interface ColorCardProps {
   setColor: (color: string, id: number) => void;
 }
 
-export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
+export default function ColorCard({
+  active,
+  selection,
+  setColor,
+}: ColorCardProps) {
   const { width } = useWindowDimensions();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: selection.id });
@@ -55,4 +59,4 @@ export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
       </Card>
     </div>
   );
-};
+}
