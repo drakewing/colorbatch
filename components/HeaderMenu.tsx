@@ -131,13 +131,6 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>
-          <Burger
-            opened={opened}
-            onClick={toggle}
-            className={classes.burger}
-            size="sm"
-            color="#fff"
-          />
         </div>
       </Container>
     </Header>

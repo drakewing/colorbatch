@@ -9,6 +9,7 @@ import { ShareableLink } from "../components/ShareableLink";
 import { paramsToPalette } from "../utils/colors";
 import { NextPageContext } from "next";
 import { PaletteWrapper } from "../context/ColorPalette";
+import useWindowDimensions from "../utils/window";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,8 @@ interface HomeProps {
 }
 
 export default function Home({ initialColors }: HomeProps) {
+  const { width } = useWindowDimensions();
+
   return (
     <>
       <Head>
@@ -32,13 +35,15 @@ export default function Home({ initialColors }: HomeProps) {
             alignItems: "center",
             display: "flex",
             flexDirection: "column",
-            marginBottom: 30,
-            marginTop: 60,
-            rowGap: 10,
+            marginBottom: width && width > 775 ? 30 : 10,
+            marginTop: width && width > 775 ? 40 : 10,
+            rowGap: width && width > 775 ? 10 : 0,
           }}
         >
-          <Title order={1}>Create and share color palettes</Title>
-          <Text size="md">
+          <Title order={width && width > 775 ? 1 : 3}>
+            Create and share color palettes
+          </Title>
+          <Text size={width && width > 775 ? "md" : "sm"}>
             Share them with your friends - no login required!
           </Text>
         </div>

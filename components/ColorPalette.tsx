@@ -57,7 +57,10 @@ export function ColorPalette() {
             : verticalListSortingStrategy
         }
       >
-        <Group noWrap={(width && width > 775) as boolean}>
+        <Group
+          noWrap={(width && width > 775) as boolean}
+          sx={{ gap: width && width > 775 ? 16 : 4 }}
+        >
           {colors.map((color) => (
             <ColorCard
               active={active === color.id}
