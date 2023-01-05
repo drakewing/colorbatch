@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 import { HeaderMenuColored } from "../components/HeaderMenu";
 import { ColorPalette, ColorSelection } from "../components/ColorPalette";
 import { ShareableLink } from "../components/ShareableLink";
-import { createPaletteLink, paramsToPalette } from "../utils/colors";
+import { paramsToPalette } from "../utils/colors";
 import { NextPageContext } from "next";
 import { PaletteWrapper } from "../context/ColorPalette";
 
@@ -53,5 +53,6 @@ export default function Home({ initialColors }: HomeProps) {
 
 export function getServerSideProps(context: NextPageContext) {
   const initialColors = paramsToPalette(context.req?.url?.substring(2) || "");
+  console.log(initialColors);
   return { props: { initialColors } };
 }

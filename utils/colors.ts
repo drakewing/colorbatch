@@ -9,7 +9,7 @@ export function paramsToPalette(params: string): ColorSelection[] {
     .slice(0, 7)
     .map((color) => `#${color}`)
     .map((color, i) => ({
-      id: i,
+      id: i + 1,
       color: color,
     }));
 
