@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import { Group } from "@mantine/core";
 import {
   DndContext,
@@ -17,10 +17,12 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
   horizontalListSortingStrategy,
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
 import { ColorCard } from "../components/ColorCard";
 import { usePaletteContext } from "../context/ColorPalette";
+import useWindowDimensions from "../utils/window";
 
 export interface ColorSelection {
   id: number;
@@ -28,6 +30,7 @@ export interface ColorSelection {
 }
 
 export function ColorPalette() {
+  const { width } = useWindowDimensions();
   const { colors, setColors } = usePaletteContext();
   const [active, setActive] = useState<UniqueIdentifier>(0);
   const sensors = useSensors(
@@ -46,8 +49,15 @@ export function ColorPalette() {
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
     >
-      <SortableContext items={colors} strategy={horizontalListSortingStrategy}>
-        <Group noWrap>
+      <SortableContext
+        items={colors}
+        strategy={
+          width && width > 775
+            ? horizontalListSortingStrategy
+            : verticalListSortingStrategy
+        }
+      >
+        <Group noWrap={(width && width > 775) as boolean}>
           {colors.map((color) => (
             <ColorCard
               active={active === color.id}

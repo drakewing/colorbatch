@@ -34,18 +34,24 @@ export const ColorCard = ({ active, selection, setColor }: ColorCardProps) => {
           "@media (max-width: 1100px)": {
             width: "96px",
           },
+          "@media (max-width: 775px)": {
+            width: "100vw",
+          },
           width: "180px",
+          marginBottom: 0,
           backgroundColor: selection.color,
           touchAction: "none",
         })}
       >
-        <Card.Section h={320} {...listeners} />
-        <ColorInput
-          value={selection.color}
-          onChange={(value) => setColor(value, selection.id)}
-          withPreview={false}
-          size="xs"
-        />
+        <Card.Section h={width && width > 775 ? 320 : 40} {...listeners} />
+        {width && width > 775 && (
+          <ColorInput
+            value={selection.color}
+            onChange={(value) => setColor(value, selection.id)}
+            withPreview={false}
+            size="xs"
+          />
+        )}
       </Card>
     </div>
   );

@@ -53,6 +53,5 @@ export default function Home({ initialColors }: HomeProps) {
 
 export function getServerSideProps(context: NextPageContext) {
   const initialColors = paramsToPalette(context.req?.url?.substring(2) || "");
-  console.log(initialColors);
   return { props: { initialColors } };
 }
