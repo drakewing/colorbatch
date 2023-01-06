@@ -123,9 +123,6 @@ export default function ColorPalette() {
   }
 
   function handleDragEnd({ active, over }: DragEndEvent) {
-    console.log(active);
-    console.log(over);
-
     if (active.id !== over?.id) {
       setColors((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);

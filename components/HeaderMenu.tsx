@@ -124,7 +124,7 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
       <Container>
         <div className={classes.inner}>
           <div style={logoStyle}>
-            <Link href={`http://${process.env.NEXT_PUBLIC_COLORBATCH_HOST}/`}>
+            <Link href={`${process.env.NEXT_PUBLIC_COLORBATCH_HOST}/`}>
               colorbatch
             </Link>
           </div>

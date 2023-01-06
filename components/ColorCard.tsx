@@ -53,15 +53,13 @@ export default function ColorCard({
           touchAction: "none",
         }}
       >
-        <Card.Section h={width && width > 775 ? 320 : 60} {...listeners} />
-        {width && width > 775 && (
-          <ColorInput
-            value={selection.color}
-            onChange={(value) => setColor(value, selection.id)}
-            withPreview={false}
-            size="xs"
-          />
-        )}
+        <Card.Section h={width && width > 775 ? 320 : 40} {...listeners} />
+        <ColorInput
+          value={selection.color}
+          onChange={(value) => setColor(value, selection.id)}
+          withPreview={false}
+          size="xs"
+        />
       </Card>
       <Center style={{ height: "100%" }} mt={16}>
         <ActionIcon onClick={() => deleteColor(selection.id)}>
