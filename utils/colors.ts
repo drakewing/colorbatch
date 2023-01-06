@@ -15,13 +15,7 @@ export function paramsToPalette(params: string): ColorSelection[] {
 
   if (colors.length > 0) return colors;
 
-  return [
-    { id: 1, color: "#a568bd" },
-    { id: 2, color: "#7a3737" },
-    { id: 3, color: "#4dbf75" },
-    { id: 4, color: "#c24f4f" },
-    { id: 5, color: "#1568bd" },
-  ];
+  return [...Array(5)].map((_, i) => ({ id: i + 1, color: makeRandomColor() }));
 }
 
 export function makeRandomColor(): string {

@@ -51,15 +51,7 @@ export default function ColorPalette() {
         onDragEnd={handleDragEnd}
         onDragStart={handleDragStart}
       >
-        <SortableContext
-          items={[...colors]}
-          strategy={
-            // width && width > 775
-            //   ? horizontalListSortingStrategy
-            //   : verticalListSortingStrategy
-            rectSortingStrategy
-          }
-        >
+        <SortableContext items={[...colors]} strategy={rectSortingStrategy}>
           <Group
             noWrap={(width && width > 775) as boolean}
             sx={{ gap: width && width > 775 ? 16 : 4 }}
