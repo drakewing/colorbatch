@@ -64,7 +64,7 @@ export default function ColorPalette() {
             noWrap={(width && width > 775) as boolean}
             sx={{ gap: width && width > 775 ? 16 : 4 }}
           >
-            {colors.map((color) => (
+            {colors.map((color: ColorSelection) => (
               <ColorCard
                 active={active === color.id}
                 key={color.id}
@@ -75,7 +75,7 @@ export default function ColorPalette() {
                 }
                 selection={color}
                 setColor={(color: string, id: number) =>
-                  setColors((oldColors) =>
+                  setColors((oldColors: ColorSelection[]) =>
                     oldColors.map((oldColor) => {
                       if (oldColor.id !== id) {
                         return oldColor;

@@ -17,7 +17,9 @@ interface PaletteContextInterface {
   setColors: Dispatch<SetStateAction<ColorSelection[]>>;
 }
 
-const PaletteContext = createContext<PaletteContextInterface | null>(null);
+const PaletteContext = createContext<PaletteContextInterface>(
+  {} as PaletteContextInterface
+);
 
 export function PaletteWrapper({
   children,
