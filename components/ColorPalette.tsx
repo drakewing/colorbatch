@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Group } from "@mantine/core";
+import { ActionIcon, Center, Group } from "@mantine/core";
+import { IconPlus } from "@tabler/icons";
 import {
   DndContext,
   closestCenter,
@@ -16,12 +17,12 @@ import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  horizontalListSortingStrategy,
-  verticalListSortingStrategy,
+  rectSortingStrategy,
 } from "@dnd-kit/sortable";
 
 import { usePaletteContext } from "../context/ColorPalette";
 import useWindowDimensions from "../utils/window";
+import { makeRandomColor } from "../utils/colors";
 import ColorCard from "./ColorCard";
 
 export interface ColorSelection {
@@ -42,56 +43,89 @@ export default function ColorPalette() {
   );
 
   return (
-    <DndContext
-      id="0"
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-      onDragStart={handleDragStart}
-    >
-      <SortableContext
-        items={colors}
-        strategy={
-          width && width > 775
-            ? horizontalListSortingStrategy
-            : verticalListSortingStrategy
-        }
+    <>
+      <DndContext
+        id="0"
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}
       >
-        <Group
-          noWrap={(width && width > 775) as boolean}
-          sx={{ gap: width && width > 775 ? 16 : 4 }}
+        <SortableContext
+          items={[...colors]}
+          strategy={
+            // width && width > 775
+            //   ? horizontalListSortingStrategy
+            //   : verticalListSortingStrategy
+            rectSortingStrategy
+          }
         >
-          {colors.map((color) => (
-            <ColorCard
-              active={active === color.id}
-              key={color.id}
-              selection={color}
-              setColor={(color: string, id: number) =>
-                setColors((oldColors) =>
-                  oldColors.map((oldColor) => {
-                    if (oldColor.id !== id) {
-                      return oldColor;
-                    }
+          <Group
+            noWrap={(width && width > 775) as boolean}
+            sx={{ gap: width && width > 775 ? 16 : 4 }}
+          >
+            {colors.map((color) => (
+              <ColorCard
+                active={active === color.id}
+                key={color.id}
+                deleteColor={(id: number) =>
+                  setColors((oldColors: ColorSelection[]) =>
+                    oldColors.filter((color) => color.id !== id)
+                  )
+                }
+                selection={color}
+                setColor={(color: string, id: number) =>
+                  setColors((oldColors) =>
+                    oldColors.map((oldColor) => {
+                      if (oldColor.id !== id) {
+                        return oldColor;
+                      }
 
-                    return {
-                      ...oldColor,
-                      color,
-                    };
-                  })
-                )
-              }
-            />
-          ))}
-        </Group>
-      </SortableContext>
-    </DndContext>
+                      return {
+                        ...oldColor,
+                        color,
+                      };
+                    })
+                  )
+                }
+              />
+            ))}
+            {colors.length && colors.length < 7 && (
+              <Center style={{ width: width && width < 775 ? width : 0 }}>
+                <ActionIcon onClick={addColor}>
+                  <IconPlus />
+                </ActionIcon>
+              </Center>
+            )}
+          </Group>
+        </SortableContext>
+      </DndContext>
+    </>
   );
+
+  function addColor() {
+    setColors((oldColors: ColorSelection[]) => {
+      if (oldColors.length >= 7) {
+        return oldColors;
+      }
+
+      const maxId = oldColors.reduce(
+        (acc, cur) => (cur.id > acc ? cur.id : acc),
+        0
+      );
+
+      return [...oldColors, { id: maxId + 1, color: makeRandomColor() }];
+    });
+  }
 
   function handleDragStart({ active }: DragStartEvent) {
     setActive(active.id);
   }
 
   function handleDragEnd({ active, over }: DragEndEvent) {
+    console.log(active);
+    console.log(over);
+
     if (active.id !== over?.id) {
       setColors((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
@@ -100,5 +134,7 @@ export default function ColorPalette() {
         return arrayMove(items, oldIndex, newIndex);
       });
     }
+
+    setActive(0);
   }
 }

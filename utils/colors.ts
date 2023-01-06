@@ -21,7 +21,13 @@ export function paramsToPalette(params: string): ColorSelection[] {
     { id: 3, color: "#4dbf75" },
     { id: 4, color: "#c24f4f" },
     { id: 5, color: "#1568bd" },
-    { id: 6, color: "#1568bd" },
-    { id: 7, color: "#1568bd" },
   ];
+}
+
+export function makeRandomColor(): string {
+  const code = [...Array(6)]
+    .map((digit) => Math.floor(Math.random() * 16).toString(16))
+    .join("");
+
+  return `#${code}`;
 }
